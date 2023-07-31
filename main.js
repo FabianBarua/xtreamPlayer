@@ -1,6 +1,8 @@
 const itemsPerPage = 21;
 let currentPage = 1;
 let movies = [];
+const searchInput = document.getElementById("searchInput");
+
 
 function fetchMovies() {
   fetch('m3ulist.m3u')
@@ -50,6 +52,9 @@ function displayMovies() {
   }
 }
 
+
+
+
 function createMovieCard(movie) {
   const card = document.createElement("div");
   card.className = "bg-white rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
@@ -76,7 +81,6 @@ function createMovieCard(movie) {
 
 
 function filterMovies() {
-  const searchInput = document.getElementById("searchInput");
   const searchTerm = searchInput.value.trim().toLowerCase();
 
   if (searchTerm === "") {
@@ -157,4 +161,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   fetchMovies();
+
+  searchInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+      currentPage = 1;
+      displayMovies();
+      displayPagination();
+    }
+  });
+  
 });
