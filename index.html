@@ -5,6 +5,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Lista de Películas</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyAT83WoIgwnlK14QXZkmZ2RbgoH1YcSHLg",
+      authDomain: "pelisalpha.firebaseapp.com",
+      projectId: "pelisalpha",
+      storageBucket: "pelisalpha.appspot.com",
+      messagingSenderId: "247299695301",
+      appId: "1:247299695301:web:25c15bdbe92888500cc6ac",
+      measurementId: "G-2KSZ3PZ6SK"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
+
 </head>
 <body class="bg-gray-100">
   <div class="container mx-auto py-8">
