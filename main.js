@@ -95,22 +95,32 @@ function displayPagination() {
   const startPage = Math.max(1, currentPage - 2);
   const endPage = Math.min(totalPages, startPage + 4);
 
+  let prevPage = null; // Track the previous page number
+
   if (currentPage > 1) {
     addPageLink(pagination, "1");
-    if (currentPage > 2) {
+    prevPage = 1;
+    if (currentPage > 4) {
       addPageDots(pagination);
     }
   }
 
   for (let i = startPage; i <= endPage; i++) {
-    addPageLink(pagination, i.toString());
+    // Only add the page link if it is not equal to the previous page number
+    if (i !== prevPage) {
+      addPageLink(pagination, i.toString());
+      prevPage = i;
+    }
   }
 
   if (currentPage < totalPages) {
-    if (currentPage < totalPages - 1) {
+    if (currentPage < totalPages - 2) {
       addPageDots(pagination);
     }
-    addPageLink(pagination, totalPages.toString());
+    // Only add the page link if it is not equal to the previous page number
+    if (totalPages !== prevPage) {
+      addPageLink(pagination, totalPages.toString());
+    }
   }
 }
 
@@ -131,8 +141,10 @@ function addPageLink(parent, page) {
 }
 
 function addPageDots(parent) {
+  // Assuming parent is the "pagination" div element
   const dotsSpan = document.createElement("span");
   dotsSpan.textContent = "...";
+  dotsSpan.classList.add("text-gray-400", "mx-1"); // Apply Tailwind CSS classes
   parent.appendChild(dotsSpan);
 }
 
