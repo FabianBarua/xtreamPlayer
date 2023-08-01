@@ -60,9 +60,13 @@ function createMovieCard(movie) {
   card.className = "bg-white rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
 
   const logoElement = document.createElement("img");
-  logoElement.src = movie.logo;
   logoElement.alt = movie.title;
   logoElement.className = "w-24 h-auto mb-2 mx-auto rounded-md";
+  logoElement.src = movie.logo ? movie.logo : "cargando.gif";
+
+  logoElement.onerror = function () {
+    logoElement.src = "cargando.gif";
+  };
 
   const titleElement = document.createElement("h2");
   titleElement.className = "text-lg font-bold text-center mb-2";
