@@ -50,7 +50,7 @@ def save_cleaned_m3u(file_path, cleaned_m3u):
 
 
 if __name__ == "__main__":
-    input_m3u_file = "a.m3u"  # Replace with the path to your input M3U file
+    input_m3u_file = "m3ulist.m3u"  # Replace with the path to your input M3U file
     output_m3u_file = "output.m3u"  # Replace with the desired output path
 
     m3u_content = load_m3u_file(input_m3u_file)
