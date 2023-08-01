@@ -29,14 +29,15 @@
 <body class="bg-gray-100">
   <div class="container mx-auto py-8">
     <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Pelis AlphaX</h1>
-    <div class="flex items flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 mx-4 mb-4 bg-gray-">
-        <label for="searchInput" class="text-lg font-semibold">Buscar:</label>
-        <input type="text" id="searchInput" class="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Ingresa el nombre">
-        <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">Buscar</button>
 
-
-      </div>
-      
+<div class="flex flex-col lg:flex-row  space-y-2 lg:space-y-0 place-content-between  mb-4 mx-4">
+  <div class="flex bg- items flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0   ">
+    <label for="searchInput" class="text-lg font-semibold">Buscar:</label>
+    <input type="text" id="searchInput" class="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Ingresa el nombre">
+    <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">Buscar</button>
+  </div>
+  <button id="randomButton" class="bg-blue-500 text-white px-4 py-2 rounded-lg  hover:bg-blue-600">Ordenar Aleatoriamente</button>
+</div>
     <div id="moviesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4"></div>
     <div id="pagination" class="flex justify-center mt-4"></div>
   </div>

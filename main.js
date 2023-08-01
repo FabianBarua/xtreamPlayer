@@ -156,10 +156,25 @@ function addPageDots(parent) {
   parent.appendChild(dotsSpan);
 }
 
+function randomizeMovies() {
+  for (let i = movies.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [movies[i], movies[j]] = [movies[j], movies[i]];
+  }
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("searchButton");
   searchButton.addEventListener("click", () => {
     currentPage = 1;
+    displayMovies();
+    displayPagination();
+  });
+
+  const randomButton = document.getElementById("randomButton");
+  randomButton.addEventListener("click", () => {
+    randomizeMovies();
     displayMovies();
     displayPagination();
   });
