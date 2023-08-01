@@ -1,74 +1,47 @@
 const itemsPerPage = 21;
 let currentPage = 1;
-let movies = [];
+let series = [];
 const searchInput = document.getElementById("searchInput");
 
-
-
-
-function fetchMovies() {
-  fetch('m3ulist.m3u')
-    .then((response) => response.text())
+function fetchseries() {
+  fetch('https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_series')
+    .then((response) => response.json())
     .then((data) => processData(data))
     .catch((error) => console.error("Error fetching data:", error));
 }
 
 function processData(data) {
-  const lines = data.split("\n");
-  movies = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-
-    if (line.startsWith("#EXTINF:")) {
-      const title = line.match(/tvg-name="([^"]*)"/)[1];
-      const logo = line.match(/tvg-logo="([^"]*)"/)[1];
-      const url = lines[i + 1].trim();
-
-      if (title && logo && url) {
-        movies.push({ title, logo, url });
-      }
-    }
-  }
-
-  displayMovies();
+  series = data;
+  displayseries();
   displayPagination();
 }
 
-
-
-
-
-function displayMovies() {
-  const moviesGrid = document.getElementById("moviesGrid");
-  moviesGrid.innerHTML = "";
+function displayseries() {
+  const seriesGrid = document.getElementById("seriesGrid");
+  seriesGrid.innerHTML = "";
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const filteredMovies = filterMovies();
+  const filteredseries = filterseries();
 
-  for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
-    const movie = filteredMovies[i];
+  for (let i = startIndex; i < endIndex && i < filteredseries.length; i++) {
+    const serie = filteredseries[i];
 
-    const card = createMovieCard(movie);
+    const card = createserieCard(serie);
 
-    moviesGrid.appendChild(card);
-
+    seriesGrid.appendChild(card);
   }
 }
 
-
-
-
-function createMovieCard(movie) {
+function createserieCard(serie) {
   const card = document.createElement("div");
   card.className = "bg-white rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
 
   const logoElement = document.createElement("img");
-  logoElement.alt = movie.title;
+  logoElement.alt = serie.name;
   logoElement.className = "w-24 h-auto mb-2 mx-auto rounded-md";
-  logoElement.src = movie.logo ? movie.logo : "cargando.gif";
+  logoElement.src = serie.cover ? serie.cover : "cargando.gif";
 
   logoElement.onerror = function () {
     logoElement.src = "cargando.gif";
@@ -76,23 +49,21 @@ function createMovieCard(movie) {
 
   const titleElement = document.createElement("h2");
   titleElement.className = "text-lg font-bold text-center mb-2";
-  titleElement.textContent = movie.title;
+  titleElement.textContent = serie.name;
 
   const linkElement = document.createElement("a");
-  linkElement.href = movie.url;
-  linkElement.textContent = "Ver película";
+  linkElement.href = serie.youtube_trailer ? `https://www.youtube.com/watch?v=${serie.youtube_trailer}` : "#";
+  linkElement.textContent = "Ver serie";
   linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600";
 
-  linkElement.setAttribute("data-boton", movie.title);
+  linkElement.setAttribute("data-boton", serie.name);
 
-
-/*
+  /*
   linkElement.addEventListener("click", (event) => {
-    const nombrePelicula = event.target.getAttribute("data-boton");
-    analytics.logEvent('ver_pelicula', { pelicula: nombrePelicula });
-    
+    const nombreSerie = event.target.getAttribute("data-boton");
+    analytics.logEvent('ver_serie', { serie: nombreSerie });
   });
-*/
+  */
 
   card.appendChild(logoElement);
   card.appendChild(titleElement);
@@ -100,22 +71,21 @@ function createMovieCard(movie) {
   return card;
 }
 
-
-function filterMovies() {
+function filterseries() {
   const searchTerm = searchInput.value.trim().toLowerCase();
 
   if (searchTerm === "") {
-    return movies;
+    return series;
   }
 
-  return movies.filter((movie) => movie.title.toLowerCase().includes(searchTerm));
+  return series.filter((serie) => serie.name.toLowerCase().includes(searchTerm));
 }
 
 function displayPagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  const totalPages = Math.ceil(filterMovies().length / itemsPerPage);
+  const totalPages = Math.ceil(filterseries().length / itemsPerPage);
 
   const startPage = Math.max(1, currentPage - 2);
   const endPage = Math.min(totalPages, startPage + 4);
@@ -158,7 +128,7 @@ function addPageLink(parent, page) {
   pageLink.addEventListener("click", (event) => {
     event.preventDefault();
     currentPage = Number(page);
-    displayMovies();
+    displayseries();
     displayPagination();
   });
 
@@ -173,37 +143,35 @@ function addPageDots(parent) {
   parent.appendChild(dotsSpan);
 }
 
-function randomizeMovies() {
-  for (let i = movies.length - 1; i > 0; i--) {
+function randomizeseries() {
+  for (let i = series.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [movies[i], movies[j]] = [movies[j], movies[i]];
+    [series[i], series[j]] = [series[j], series[i]];
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("searchButton");
   searchButton.addEventListener("click", () => {
     currentPage = 1;
-    displayMovies();
+    displayseries();
     displayPagination();
   });
 
   const randomButton = document.getElementById("randomButton");
   randomButton.addEventListener("click", () => {
-    randomizeMovies();
-    displayMovies();
+    randomizeseries();
+    displayseries();
     displayPagination();
   });
 
-  fetchMovies();
+  fetchseries();
 
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       currentPage = 1;
-      displayMovies();
+      displayseries();
       displayPagination();
     }
   });
-  
 });

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pelis AlphaX</title>
+  <title>Series AlphaX</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-
+<!--
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
     import { getAnalytics, logEvent  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
@@ -23,12 +23,13 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
   </script>
+-->
 
 
 </head>
 <body class="bg-gray-100">
   <div class="container mx-auto py-8">
-    <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Pelis AlphaX</h1>
+    <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Series AlphaX</h1>
 
 <div class="flex flex-col lg:flex-row  space-y-2 lg:space-y-0 place-content-between  mb-4 mx-4">
   <div class="flex bg- items flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0   ">
@@ -38,10 +39,10 @@
   </div>
   <button id="randomButton" class="bg-gray-900 text-white px-4 py-2 rounded  hover:bg-blue-600">Ordenar Aleatoriamente</button>
 </div>
-    <div id="moviesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4"></div>
+    <div id="seriesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4"></div>
     <div id="pagination" class="flex justify-center mt-4"></div>
   </div>
 
-  <script type="module"  src="main.js"></script>
+  <script type="module"  src="main2.js"></script>
 </body>
 </html>
