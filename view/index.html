@@ -103,7 +103,7 @@
           for (const season of seasons) {
             const seasonNumberButton = document.createElement("button");
             seasonNumberButton.className = "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none";
-            seasonNumberButton.textContent = `Temporada ${season.season_number}`;
+            seasonNumberButton.textContent = `Temp. ${season.season_number}`;
             seasonNumberButton.addEventListener("click", () => showSeasonEpisodes(season.season_number, seasons[season.season_number-1].cover));
             seasonsRow.appendChild(seasonNumberButton);
           }
