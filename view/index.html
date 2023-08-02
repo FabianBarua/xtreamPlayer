@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Series AlphaX</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
 </head>
@@ -68,12 +70,12 @@
             
             infoButtonContainer.appendChild(episodeInfoContainer);
 
-            // Botón "Ver"
-            const verButton = document.createElement("button");
-            verButton.className = "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full";
-            verButton.textContent = "Ver";
-            verButton.href=`./play/#${episode.id}`
-            infoButtonContainer.appendChild(verButton);
+            // Enlace "Ver"
+            const verLink = document.createElement("a");
+            verLink.className = "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full";
+            verLink.textContent = "Ver";
+            verLink.href = `../play/#${episode.id}`;
+            infoButtonContainer.appendChild(verLink);
 
             episodeCard.appendChild(infoButtonContainer);
 
