@@ -41,10 +41,10 @@ function createserieCard(serie) {
   const logoElement = document.createElement("img");
   logoElement.alt = serie.name;
   logoElement.className = "w-24 h-auto mb-2 mx-auto rounded-md";
-  logoElement.src = serie.cover ? serie.cover : "cargando.gif";
+  logoElement.src = serie.cover ? serie.cover : "../img/cargando.gif";
 
   logoElement.onerror = function () {
-    logoElement.src = "cargando.gif";
+    logoElement.src = "../img/cargando.gif";
   };
 
   const titleElement = document.createElement("h2");
@@ -52,18 +52,12 @@ function createserieCard(serie) {
   titleElement.textContent = serie.name;
 
   const linkElement = document.createElement("a");
-  linkElement.href = serie.youtube_trailer ? `https://www.youtube.com/watch?v=${serie.youtube_trailer}` : "#";
+  linkElement.href = serie.series_id ? `./view#${serie.series_id}` : "#";
+
   linkElement.textContent = "Ver serie";
   linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600";
 
   linkElement.setAttribute("data-boton", serie.name);
-
-  /*
-  linkElement.addEventListener("click", (event) => {
-    const nombreSerie = event.target.getAttribute("data-boton");
-    analytics.logEvent('ver_serie', { serie: nombreSerie });
-  });
-  */
 
   card.appendChild(logoElement);
   card.appendChild(titleElement);

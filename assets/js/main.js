@@ -68,10 +68,10 @@ function createMovieCard(movie) {
   const logoElement = document.createElement("img");
   logoElement.alt = movie.title;
   logoElement.className = "w-24 h-auto mb-2 mx-auto rounded-md";
-  logoElement.src = movie.logo ? movie.logo : "cargando.gif";
+  logoElement.src = movie.logo ? movie.logo : "../img/cargando.gif";
 
   logoElement.onerror = function () {
-    logoElement.src = "cargando.gif";
+    logoElement.src = "../img/cargando.gif";
   };
 
   const titleElement = document.createElement("h2");

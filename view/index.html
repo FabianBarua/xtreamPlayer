@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Series AlphaX</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Series AlphaX</h1>
+
+    <div class="flex flex-col lg:flex-row  space-y-2 lg:space-y-0 place-content-between  mb-4 mx-4">
+    </div>
+
+    <div id="seasonsRow" class="grid lg:grid-cols-10 grid-cols-3 gap-4 mb-4 mx-4"></div>
+
+    <div id="episodesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4"></div>
+
+    <div id="pagination" class="flex justify-center mt-4"></div>
+  </div>
+
+  <script>
+
+    function skipSeasonZero(seasons) {
+      if (seasons.length > 0 && seasons[0].season_number === 0) {
+        return seasons.slice(1); // Return the seasons array without the first season (season 0)
+      }
+      return seasons; // If the first season is not season 0 or there are no seasons, return the original array
+    }
+
+    function getUrlFragment() {
+      return window.location.hash.substring(1);
+    }
+
+    const codigo = getUrlFragment();
+
+    const apiUrl = `https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_series_info&series_id=${codigo}`;
+
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Obtener las temporadas y episodios del JSON
+        seasons = data.seasons;
+        seasons=skipSeasonZero(seasons);
+        const episodesGrid = document.getElementById("episodesGrid");
+
+        function createEpisodeCard(episode, seasonCover) {
+            const episodeCard = document.createElement("div");
+            episodeCard.className = "bg-white rounded-lg shadow-md flex p-4";
+
+            // Columna de la información y botón
+            const infoButtonContainer = document.createElement("div");
+            infoButtonContainer.className = "flex flex-col pr-6 pb-2 w-2/3"; // Utilizamos space-x-4 para agregar espacio entre los elementos
+
+            // EpisodeInfoContainer
+            const episodeInfoContainer = document.createElement("div");
+            episodeInfoContainer.className = "flex-1 pr-4";
+            
+            // Título del episodio
+            const episodeTitle = document.createElement("h2");
+            episodeTitle.className = "text-lg font-bold mb-2";
+            episodeTitle.textContent = `Episodio ${episode.episode_num}: ${episode.title}`;
+            episodeInfoContainer.appendChild(episodeTitle);
+
+            // Duración del episodio
+            const episodeDuration = document.createElement("p");
+            episodeDuration.textContent = `Duración: ${episode.info.duration}`;
+            episodeInfoContainer.appendChild(episodeDuration);
+            
+            infoButtonContainer.appendChild(episodeInfoContainer);
+
+            // Botón "Ver"
+            const verButton = document.createElement("button");
+            verButton.className = "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full";
+            verButton.textContent = "Ver";
+            verButton.href=`./play/#${episode.id}`
+            infoButtonContainer.appendChild(verButton);
+
+            episodeCard.appendChild(infoButtonContainer);
+
+            // Columna de la imagen
+            const episodeImageContainer = document.createElement("div");
+            episodeImageContainer.className = "w-1/3";
+            const episodeImage = document.createElement("img");
+            episodeImage.className = "h-64 object-cover rounded-md mb-2";
+            episodeImage.src = seasonCover; // Aquí debes agregar el campo de la imagen del episodio en tu JSON
+            episodeImageContainer.appendChild(episodeImage);
+            episodeCard.appendChild(episodeImageContainer);
+
+            return episodeCard;
+        }
+
+
+
+        // Función para crear una hilera de números de temporadas
+        function createSeasonsRow(seasons) {
+          const seasonsRow = document.getElementById("seasonsRow");
+
+          for (const season of seasons) {
+            const seasonNumberButton = document.createElement("button");
+            seasonNumberButton.className = "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none";
+            seasonNumberButton.textContent = `Temporada ${season.season_number}`;
+            seasonNumberButton.addEventListener("click", () => showSeasonEpisodes(season.season_number, seasons[season.season_number-1].cover));
+            seasonsRow.appendChild(seasonNumberButton);
+          }
+        }
+
+        // Función para mostrar los episodios de una temporada
+        function showSeasonEpisodes(seasonNumber, seasonCover) {
+          episodesGrid.innerHTML = ""; // Limpiamos el contenedor de episodios
+
+          for (const episode of data.episodes[seasonNumber]) {
+            const episodeCard = createEpisodeCard(episode, seasonCover);
+            episodesGrid.appendChild(episodeCard);
+          }
+        }
+
+
+    
+        
+        createSeasonsRow(seasons); // Mostramos la hilera de números de temporadas inicialmente con la primera temporada
+        showSeasonEpisodes(seasons[0].season_number, seasons[0].cover); // Mostramos los episodios de la primera temporada inicialmente
+      })
+      .catch(error => {
+        console.error("Error al obtener el JSON:", error);
+      });
+
+
+      
+
+  </script>
+</body>
+</html>
