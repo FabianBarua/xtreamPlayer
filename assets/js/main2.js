@@ -52,7 +52,7 @@ function createserieCard(serie) {
   titleElement.textContent = serie.name;
 
   const linkElement = document.createElement("a");
-  linkElement.href = serie.series_id ? `/view#${serie.series_id}` : "#";
+  linkElement.href = serie.series_id ? `../../view#${serie.series_id}` : "#";
 
   linkElement.textContent = "Ver serie";
   linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600"; // Cambio de colores y estilo del enlace
