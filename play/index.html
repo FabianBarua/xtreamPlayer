@@ -1,31 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>@vime/html-example</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@vime/core@^5/themes/default.css"
+    />
+    <script
+      defer
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/@vime/core@^5/dist/vime/vime.esm.js"
+    ></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reproductor de Video MP4</title>
-</head>
+  </head>
 
-<body>
+  <body class="bg-gray-900">
+    <div id="container">
+      <vm-player
+      theme="dark"
+      style="--vm-player-theme: #3b82f6;"
+    >
+      <vm-video
+      crossorigin="anonymous"
+        poster="/assets/img/banner.png"
+      >
+        <source 
+        id="SRC"
+        crossorigin="anonymous"
+          data-src="" 
+          type="video/mp4"
+        />
+      </vm-video>
+      
+      <vm-default-ui><vm-default-ui>
+    </vm-player>
+    </div>
 
-    <video id="videoPlayer" controls>
-      <source id="videoSource" src="" type="video/mp4">
-      Tu navegador no soporta el formato de video MP4.
-    </video>
+    <script>
+      window.player = document.querySelector('vm-player');
+    </script>
 
+    <style>
+      body,
+      html {
+        width: 100%;
+        height: 100%;
+      }
 
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-  <script>
-    const videoCode = window.location.hash.substring(1);
-    const videoUrl = `https://connecttvapp.xyz/series/homeondemand/vR5jZPUJSWCY/${videoCode}.mp4`;
-    const videoPlayer = document.getElementById('videoPlayer');
-    const videoSource = document.getElementById('videoSource');
-    videoSource.setAttribute('src', videoUrl);
-    videoPlayer.load();
-  </script>
+      #container {
+        width: 100%;
+        max-width: 960px;
+      }
+    </style>
 
-  
-</body>
+    <script>
+      const videoCode = window.location.hash.substring(1);
+      const videoUrl = `https://connecttvapp.xyz/series/homeondemand/vR5jZPUJSWCY/${videoCode}.mp4`;
+      const videoSource = document.getElementById('SRC');
+      videoSource.setAttribute('src', videoUrl);
+    </script>
 
+    
+  </body>
 </html>

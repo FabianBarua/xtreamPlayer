@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pelis AlphaX</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAnalytics, logEvent  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyAT83WoIgwnlK14QXZkmZ2RbgoH1YcSHLg",
+      authDomain: "pelisalpha.firebaseapp.com",
+      projectId: "pelisalpha",
+      storageBucket: "pelisalpha.appspot.com",
+      messagingSenderId: "247299695301",
+      appId: "1:247299695301:web:25c15bdbe92888500cc6ac",
+      measurementId: "G-2KSZ3PZ6SK"
+    };
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+  </script>
+
+
+</head>
+<body class="bg-gray-900 text-white"> <!-- Cambio de fondo a color oscuro y texto a blanco -->
+  <div class="container mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Series AlphaX</h1>
+
+    <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 place-content-between mb-4 mx-4">
+      <div class="flex items-center flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0">
+        <label for="searchInput" class="text-lg font-semibold">Buscar:</label>
+        <input type="text" id="searchInput" class="border border-gray-700 bg-gray-800 text-white rounded px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Ingresa el nombre"> <!-- Cambio de colores y estilo del input -->
+        <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">Buscar</button>
+      </div>
+      <button id="randomButton" class="bg-gray-700 text-white px-4 py-2 rounded hover:bg-blue-600">Ordenar Aleatoriamente</button> <!-- Cambio de color del botón -->
+    </div>
+
+    <div id="seriesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4"></div>
+    <div id="pagination" class="flex justify-center mt-4"></div>
+  </div>
+
+  <script type="module"  src="../assets/js/main2.js"></script>
+</body>
+</html>
+

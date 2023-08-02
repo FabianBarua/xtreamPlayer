@@ -36,7 +36,7 @@ function displayseries() {
 
 function createserieCard(serie) {
   const card = document.createElement("div");
-  card.className = "bg-white rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
+  card.className = "bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-full"; // Cambio de color de fondo de la tarjeta
 
   const logoElement = document.createElement("img");
   logoElement.alt = serie.name;
@@ -48,14 +48,14 @@ function createserieCard(serie) {
   };
 
   const titleElement = document.createElement("h2");
-  titleElement.className = "text-lg font-bold text-center mb-2";
+  titleElement.className = "text-lg font-bold text-center mb-2 text-white"; // Cambio de color del texto a blanco
   titleElement.textContent = serie.name;
 
   const linkElement = document.createElement("a");
-  linkElement.href = serie.series_id ? `./view#${serie.series_id}` : "#";
+  linkElement.href = serie.series_id ? `/view#${serie.series_id}` : "#";
 
   linkElement.textContent = "Ver serie";
-  linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600";
+  linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600"; // Cambio de colores y estilo del enlace
 
   linkElement.setAttribute("data-boton", serie.name);
 
@@ -64,6 +64,7 @@ function createserieCard(serie) {
   card.appendChild(linkElement);
   return card;
 }
+
 
 function filterseries() {
   const searchTerm = searchInput.value.trim().toLowerCase();

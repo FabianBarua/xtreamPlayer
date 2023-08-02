@@ -3,45 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pelis AlphaX</title>
+  <title>Tarjetas Rectangulares con Enlaces</title>
+  <!-- Enlace a Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-    import { getAnalytics, logEvent  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
-    const firebaseConfig = {
-      apiKey: "AIzaSyAT83WoIgwnlK14QXZkmZ2RbgoH1YcSHLg",
-      authDomain: "pelisalpha.firebaseapp.com",
-      projectId: "pelisalpha",
-      storageBucket: "pelisalpha.appspot.com",
-      messagingSenderId: "247299695301",
-      appId: "1:247299695301:web:25c15bdbe92888500cc6ac",
-      measurementId: "G-2KSZ3PZ6SK"
-    };
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
-
-
 </head>
-<body class="bg-gray-100">
-  <div class="container mx-auto py-8">
-    <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Pelis AlphaX</h1>
+<body class="bg-gray-900 text-white">
+    <div class="flex flex-col justify-center items-center h-screen">
+        <h1 class="text-4xl font-bold text-center mb-16">AlphaX</h1>
+        <div>
+            <div class="container mx-auto p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <!-- Tarjeta 1 -->
+                  <div class="bg-gray-800 rounded-lg shadow-md p-4">
+                    <h2 class="text-xl font-bold mb-2">Películas</h2>
+                    <p class="text-gray-400">Explora un gran universo!</p>
+                    <!-- Enlace "Ver" -->
+                    <a href="pelis" class="mt-4 block w-full px-4 py-2 bg-blue-500 text-white rounded-md text-center hover:bg-blue-600">Ver</a>
+                  </div>
+            
+                  <!-- Tarjeta 2 -->
+                  <div class="bg-gray-800 rounded-lg shadow-md p-4">
+                    <h2 class="text-xl font-bold mb-2">Series</h2>
+                    <p class="text-gray-400">¿Listo para maratonear?</p>
+                    <!-- Enlace "Ver" -->
+                    <a href="series" class="mt-4 block w-full px-4 py-2 bg-blue-500 text-white rounded-md text-center hover:bg-blue-600">Ver</a>
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
 
-<div class="flex flex-col lg:flex-row  space-y-2 lg:space-y-0 place-content-between  mb-4 mx-4">
-  <div class="flex bg- items flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0   ">
-    <label for="searchInput" class="text-lg font-semibold">Buscar:</label>
-    <input type="text" id="searchInput" class="border border-gray-400 rounded px-3 py-2 focus:outline-none focus:border-blue-500" placeholder="Ingresa el nombre">
-    <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">Buscar</button>
-  </div>
-  <button id="randomButton" class="bg-gray-900 text-white px-4 py-2 rounded  hover:bg-blue-600">Ordenar Aleatoriamente</button>
-</div>
-    <div id="moviesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-4 px-4"></div>
-    <div id="pagination" class="flex justify-center mt-4"></div>
-  </div>
-
-  <script type="module"  src="assets/js/main.js"></script>
 </body>
 </html>

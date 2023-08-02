@@ -6,11 +6,12 @@
   <title>Series AlphaX</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.16/tailwind.min.css">
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-900 text-white"> <!-- Cambio de fondo a color oscuro y texto a blanco -->
   <div class="container mx-auto py-8">
     <h1 class="text-3xl font-bold mb-4 ml-4 text-left">Series AlphaX</h1>
 
-    <div class="flex flex-col lg:flex-row  space-y-2 lg:space-y-0 place-content-between  mb-4 mx-4">
+    <div class="flex flex-col lg:flex-row space-y-2 lg:space-y-0 place-content-between mb-4 mx-4">
+      <!-- Contenido de la sección (opcional) -->
     </div>
 
     <div id="seasonsRow" class="grid lg:grid-cols-10 grid-cols-3 gap-4 mb-4 mx-4"></div>
@@ -46,49 +47,49 @@
         const episodesGrid = document.getElementById("episodesGrid");
 
         function createEpisodeCard(episode, seasonCover) {
-            const episodeCard = document.createElement("div");
-            episodeCard.className = "bg-white rounded-lg shadow-md flex p-4";
-
-            // Columna de la información y botón
-            const infoButtonContainer = document.createElement("div");
-            infoButtonContainer.className = "flex flex-col pr-6 pb-2 w-2/3"; // Utilizamos space-x-4 para agregar espacio entre los elementos
-
-            // EpisodeInfoContainer
-            const episodeInfoContainer = document.createElement("div");
-            episodeInfoContainer.className = "flex-1 pr-4";
-            
-            // Título del episodio
-            const episodeTitle = document.createElement("h2");
-            episodeTitle.className = "text-lg font-bold mb-2";
-            episodeTitle.textContent = `Episodio ${episode.episode_num}: ${episode.title}`;
-            episodeInfoContainer.appendChild(episodeTitle);
-
-            // Duración del episodio
-            const episodeDuration = document.createElement("p");
-            episodeDuration.textContent = `Duración: ${episode.info.duration}`;
-            episodeInfoContainer.appendChild(episodeDuration);
-            
-            infoButtonContainer.appendChild(episodeInfoContainer);
-
-            // Enlace "Ver"
-            const verLink = document.createElement("a");
-            verLink.className = "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full";
-            verLink.textContent = "Ver";
-            verLink.href = `../play/#${episode.id}`;
-            infoButtonContainer.appendChild(verLink);
-
-            episodeCard.appendChild(infoButtonContainer);
-
-            // Columna de la imagen
-            const episodeImageContainer = document.createElement("div");
-            episodeImageContainer.className = "w-1/3";
-            const episodeImage = document.createElement("img");
-            episodeImage.className = "h-64 object-cover rounded-md mb-2";
-            episodeImage.src = seasonCover; // Aquí debes agregar el campo de la imagen del episodio en tu JSON
-            episodeImageContainer.appendChild(episodeImage);
-            episodeCard.appendChild(episodeImageContainer);
-
-            return episodeCard;
+          const episodeCard = document.createElement("div");
+          episodeCard.className = "bg-gray-800 rounded-lg shadow-md flex p-4"; // Cambio de color de fondo de la tarjeta
+        
+          // Columna de la información y botón
+          const infoButtonContainer = document.createElement("div");
+          infoButtonContainer.className = "flex flex-col pr-6 pb-2 w-2/3";
+        
+          // EpisodeInfoContainer
+          const episodeInfoContainer = document.createElement("div");
+          episodeInfoContainer.className = "flex-1 pr-4";
+        
+          // Título del episodio
+          const episodeTitle = document.createElement("h2");
+          episodeTitle.className = "text-lg font-bold mb-2 text-white"; // Cambio de color del texto a blanco
+          episodeTitle.textContent = `Episodio ${episode.episode_num}: ${episode.title}`;
+          episodeInfoContainer.appendChild(episodeTitle);
+        
+          // Duración del episodio
+          const episodeDuration = document.createElement("p");
+          episodeDuration.textContent = `Duración: ${episode.info.duration}`;
+          episodeInfoContainer.appendChild(episodeDuration);
+        
+          infoButtonContainer.appendChild(episodeInfoContainer);
+        
+          // Enlace "Ver"
+          const verLink = document.createElement("a");
+          verLink.className = "bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded w-full";
+          verLink.textContent = "Ver";
+          verLink.href = `../play/#${episode.id}`;
+          infoButtonContainer.appendChild(verLink);
+        
+          episodeCard.appendChild(infoButtonContainer);
+        
+          // Columna de la imagen
+          const episodeImageContainer = document.createElement("div");
+          episodeImageContainer.className = "w-1/3";
+          const episodeImage = document.createElement("img");
+          episodeImage.className = "h-64 object-cover rounded-md mb-2";
+          episodeImage.src = seasonCover; // Aquí debes agregar el campo de la imagen del episodio en tu JSON
+          episodeImageContainer.appendChild(episodeImage);
+          episodeCard.appendChild(episodeImageContainer);
+        
+          return episodeCard;
         }
 
 

@@ -63,7 +63,7 @@ function displayMovies() {
 
 function createMovieCard(movie) {
   const card = document.createElement("div");
-  card.className = "bg-white rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
+  card.className = "bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
 
   const logoElement = document.createElement("img");
   logoElement.alt = movie.title;
@@ -75,7 +75,7 @@ function createMovieCard(movie) {
   };
 
   const titleElement = document.createElement("h2");
-  titleElement.className = "text-lg font-bold text-center mb-2";
+  titleElement.className = "text-lg font-bold text-center mb-2 text-white"; // Cambio de color del texto a blanco
   titleElement.textContent = movie.title;
 
   const linkElement = document.createElement("a");
@@ -85,20 +85,12 @@ function createMovieCard(movie) {
 
   linkElement.setAttribute("data-boton", movie.title);
 
-
-/*
-  linkElement.addEventListener("click", (event) => {
-    const nombrePelicula = event.target.getAttribute("data-boton");
-    analytics.logEvent('ver_pelicula', { pelicula: nombrePelicula });
-    
-  });
-*/
-
   card.appendChild(logoElement);
   card.appendChild(titleElement);
   card.appendChild(linkElement);
   return card;
 }
+
 
 
 function filterMovies() {
