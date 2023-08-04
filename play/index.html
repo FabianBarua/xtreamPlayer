@@ -22,6 +22,23 @@
   </head>
 
   <body class="bg-gray-900">
+    
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics.js";
+      const firebaseConfig = {
+        apiKey: "AIzaSyARBBy0PlgFB94RSbkMJQyWOMFViAzmznQ",
+        authDomain: "cinegofb.firebaseapp.com",
+        projectId: "cinegofb",
+        storageBucket: "cinegofb.appspot.com",
+        messagingSenderId: "196363548031",
+        appId: "1:196363548031:web:e0f539f74fd110b046164a",
+        measurementId: "G-SJ8B7GKBH3"
+      };
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+
     <div id="container">
       <vm-player
       theme="dark"
