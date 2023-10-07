@@ -3,7 +3,7 @@ let currentPage = 1;
 let series = [];
 const searchInput = document.getElementById("searchInput");
 
-function fetchseries() {
+function fetchfilmes() {
   fetch('https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_series')
     .then((response) => response.json())
     .then((data) => processData(data))
@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displayPagination();
   });
 
-  fetchseries();
+  fetchfilmes();
 
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {

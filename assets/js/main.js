@@ -1,89 +1,60 @@
 const itemsPerPage = 21;
 let currentPage = 1;
-let movies = [];
+let filmes = [];
 const searchInput = document.getElementById("searchInput");
 
-
-
-
-function fetchMovies() {
-  fetch('m3ulist.m3u')
-    .then((response) => response.text())
+function fetchfilmes() {
+  fetch('https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_vod_streams')
+    .then((response) => response.json())
     .then((data) => processData(data))
     .catch((error) => console.error("Error fetching data:", error));
 }
 
 function processData(data) {
-  const lines = data.split("\n");
-  movies = [];
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i].trim();
-
-    if (line.startsWith("#EXTINF:")) {
-      const title = line.match(/tvg-name="([^"]*)"/)[1];
-      const logo = line.match(/tvg-logo="([^"]*)"/)[1];
-      const url = lines[i + 1].trim();
-
-      if (title && logo && url) {
-        movies.push({ title, logo, url });
-      }
-    }
-  }
-
-  displayMovies();
+  filmes = data;
+  displayfilmes();
   displayPagination();
 }
 
-
-
-
-
-function displayMovies() {
-  const moviesGrid = document.getElementById("moviesGrid");
-  moviesGrid.innerHTML = "";
+function displayfilmes() {
+  const filmesGrid = document.getElementById("moviesGrid");
+  filmesGrid.innerHTML = "";
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const filteredMovies = filterMovies();
+  const filteredfilmes = filterfilmes();
 
-  for (let i = startIndex; i < endIndex && i < filteredMovies.length; i++) {
-    const movie = filteredMovies[i];
+  for (let i = startIndex; i < endIndex && i < filteredfilmes.length; i++) {
+    const filme = filteredfilmes[i];
 
-    const card = createMovieCard(movie);
+    const card = createfilmeCard(filme);
 
-    moviesGrid.appendChild(card);
-
+    filmesGrid.appendChild(card);
   }
 }
 
-
-
-
-function createMovieCard(movie) {
+function createfilmeCard(filme) {
   const card = document.createElement("div");
-  card.className = "bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-full";
+  card.className = "bg-gray-800 rounded-lg shadow-md p-4 flex flex-col justify-between h-full"; // Cambio de color de fondo de la tarjeta
 
   const logoElement = document.createElement("img");
-  logoElement.alt = movie.title;
+  logoElement.alt = filme.name;
   logoElement.className = "w-24 h-auto mb-2 mx-auto rounded-md";
-  logoElement.src = movie.logo ? movie.logo : "../img/cargando.gif";
+  logoElement.src = filme.stream_icon ? filme.stream_icon : "/assets/img/cargando.gif";
 
-  logoElement.onerror = function () {
-    logoElement.src = "../img/cargando.gif";
-  };
 
   const titleElement = document.createElement("h2");
   titleElement.className = "text-lg font-bold text-center mb-2 text-white"; // Cambio de color del texto a blanco
-  titleElement.textContent = movie.title;
+  titleElement.textContent = filme.name;
 
   const linkElement = document.createElement("a");
-  linkElement.href = movie.url;
-  linkElement.textContent = "Ver película";
-  linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600";
+  linkElement.href = filme.stream_id ? `../play#m-${filme.stream_id}` : "#";
 
-  linkElement.setAttribute("data-boton", movie.title);
+  linkElement.textContent = "Ver filme";
+  linkElement.className = "block w-full bg-blue-500 text-white text-center py-2 rounded-lg hover:bg-blue-600"; // Cambio de colores y estilo del enlace
+
+  linkElement.setAttribute("data-boton", filme.name);
 
   card.appendChild(logoElement);
   card.appendChild(titleElement);
@@ -92,22 +63,21 @@ function createMovieCard(movie) {
 }
 
 
-
-function filterMovies() {
+function filterfilmes() {
   const searchTerm = searchInput.value.trim().toLowerCase();
 
   if (searchTerm === "") {
-    return movies;
+    return filmes;
   }
 
-  return movies.filter((movie) => movie.title.toLowerCase().includes(searchTerm));
+  return filmes.filter((filme) => filme.name.toLowerCase().includes(searchTerm));
 }
 
 function displayPagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
 
-  const totalPages = Math.ceil(filterMovies().length / itemsPerPage);
+  const totalPages = Math.ceil(filterfilmes().length / itemsPerPage);
 
   const startPage = Math.max(1, currentPage - 2);
   const endPage = Math.min(totalPages, startPage + 4);
@@ -150,7 +120,7 @@ function addPageLink(parent, page) {
   pageLink.addEventListener("click", (event) => {
     event.preventDefault();
     currentPage = Number(page);
-    displayMovies();
+    displayfilmes();
     displayPagination();
   });
 
@@ -165,37 +135,35 @@ function addPageDots(parent) {
   parent.appendChild(dotsSpan);
 }
 
-function randomizeMovies() {
-  for (let i = movies.length - 1; i > 0; i--) {
+function randomizefilmes() {
+  for (let i = filmes.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [movies[i], movies[j]] = [movies[j], movies[i]];
+    [filmes[i], filmes[j]] = [filmes[j], filmes[i]];
   }
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   const searchButton = document.getElementById("searchButton");
   searchButton.addEventListener("click", () => {
     currentPage = 1;
-    displayMovies();
+    displayfilmes();
     displayPagination();
   });
 
   const randomButton = document.getElementById("randomButton");
   randomButton.addEventListener("click", () => {
-    randomizeMovies();
-    displayMovies();
+    randomizefilmes();
+    displayfilmes();
     displayPagination();
   });
 
-  fetchMovies();
+  fetchfilmes();
 
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       currentPage = 1;
-      displayMovies();
+      displayfilmes();
       displayPagination();
     }
   });
-  
 });

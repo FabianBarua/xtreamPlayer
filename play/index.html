@@ -85,12 +85,27 @@
       }
     </style>
 
-    <script>
-      const videoCode = window.location.hash.substring(1);
-      const videoUrl = `https://connecttvapp.xyz/series/homeondemand/vR5jZPUJSWCY/${videoCode}.mp4`;
-      const videoSource = document.getElementById('SRC');
-      videoSource.setAttribute('src', videoUrl);
-    </script>
+<script>
+  const hash = window.location.hash;
+  const typeMap = {
+      's': 'series',
+      'm': 'movie'
+    };
+
+
+  if (!hash || hash === '#' || hash.split("-").length<2 || !typeMap[hash.split('-')[0].substring(1)] ){
+    window.location.href = '/'; 
+  } else {
+
+    const [type, code] = hash.substring(1).split('-');
+    console.log(type)
+    const videoUrl = `https://connecttvapp.xyz/${typeMap[type]}/homeondemand/vR5jZPUJSWCY/${code}.mp4`;
+    document.getElementById('SRC').setAttribute('src', videoUrl);
+
+  }
+</script>
+
+
 
     
   </body>
