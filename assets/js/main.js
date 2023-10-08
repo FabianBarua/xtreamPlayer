@@ -63,15 +63,30 @@ function createfilmeCard(filme) {
 }
 
 
+function removeAccents(text) {
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function filterfilmes() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
+  const searchTerm = removeAccents(searchInput.value.trim().toLowerCase());
 
   if (searchTerm === "") {
     return filmes;
   }
 
-  return filmes.filter((filme) => filme.name.toLowerCase().includes(searchTerm));
+  const matchingFilmes = filmes.filter((filme) => {
+    const filmeName = removeAccents(filme.name.toLowerCase());
+
+    // Comprueba si el término de búsqueda es una coincidencia exacta o parcial del nombre de la película
+    const isExactMatch = filmeName === searchTerm;
+    const isPartialMatch = filmeName.includes(searchTerm);
+
+    return isExactMatch || isPartialMatch;
+  });
+
+  return matchingFilmes;
 }
+
 
 function displayPagination() {
   const pagination = document.getElementById("pagination");

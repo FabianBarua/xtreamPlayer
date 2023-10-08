@@ -3,7 +3,7 @@ let currentPage = 1;
 let series = [];
 const searchInput = document.getElementById("searchInput");
 
-function fetchfilmes() {
+function fetchseries() {
   fetch('https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_series')
     .then((response) => response.json())
     .then((data) => processData(data))
@@ -66,14 +66,28 @@ function createserieCard(serie) {
 }
 
 
+function removeAccents(text) {
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
 function filterseries() {
-  const searchTerm = searchInput.value.trim().toLowerCase();
+  const searchTerm = removeAccents(searchInput.value.trim().toLowerCase());
 
   if (searchTerm === "") {
     return series;
   }
 
-  return series.filter((serie) => serie.name.toLowerCase().includes(searchTerm));
+  const matchingseries = series.filter((serie) => {
+    const serieName = removeAccents(serie.name.toLowerCase());
+
+    // Comprueba si el término de búsqueda es una coincidencia exacta o parcial del nombre de la película
+    const isExactMatch = serieName === searchTerm;
+    const isPartialMatch = serieName.includes(searchTerm);
+
+    return isExactMatch || isPartialMatch;
+  });
+
+  return matchingseries;
 }
 
 function displayPagination() {
@@ -160,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     displayPagination();
   });
 
-  fetchfilmes();
+  fetchseries();
 
   searchInput.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
