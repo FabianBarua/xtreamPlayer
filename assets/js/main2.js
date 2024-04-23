@@ -4,7 +4,7 @@ let series = [];
 const searchInput = document.getElementById("searchInput");
 
 function fetchseries() {
-  fetch('https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_series')
+  fetch('https://promoviesbr.me/player_api.php?username=homeserver&password=kqNpmZ729C&action=get_series')
     .then((response) => response.json())
     .then((data) => processData(data))
     .catch((error) => console.error("Error fetching data:", error));

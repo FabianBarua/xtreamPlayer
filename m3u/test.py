@@ -1,8 +1,8 @@
 import requests
 
-url = 'https://connecttvapp.xyz/player_api.php'
-username = 'homeondemand'
-password = 'vR5jZPUJSWCY'
+url = 'https://promoviesbr.me/player_api.php'
+username = 'homeserver'
+password = 'kqNpmZ729C'
 action = 'get_live_streams'
 
 params = {

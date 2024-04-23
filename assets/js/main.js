@@ -4,7 +4,7 @@ let filmes = [];
 const searchInput = document.getElementById("searchInput");
 
 function fetchfilmes() {
-  fetch('https://connecttvapp.xyz/player_api.php?username=homeondemand&password=vR5jZPUJSWCY&action=get_vod_streams')
+  fetch('https://promoviesbr.me/player_api.php?username=homeserver&password=kqNpmZ729C&action=get_vod_streams')
     .then((response) => response.json())
     .then((data) => processData(data))
     .catch((error) => console.error("Error fetching data:", error));

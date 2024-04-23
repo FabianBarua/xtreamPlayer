@@ -2,8 +2,8 @@ import requests
 
 # Información del usuario y el servidor
 user_info = {
-    "username": "homeondemand",
-    "password": "vR5jZPUJSWCY"
+    "username": "homeserver",
+    "password": "kqNpmZ729C"
 }
 
 server_info = {
