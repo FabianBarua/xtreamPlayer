@@ -99,7 +99,12 @@
 
     const [type, code] = hash.substring(1).split('-');
     console.log(type)
-    const videoUrl = `https://connecttvapp.xyz/${typeMap[type]}/homeserver/vR5jZPUJSWCY/${code}.mp4`;
+    
+    const host = 'https://promoviesbr.me';
+    const username = 'homeserver';
+    const password = 'kqNpmZ729C';
+    
+    const videoUrl = `${host}/${typeMap[type]}/${username}/${password}/${code}.mp4`;
     document.getElementById('SRC').setAttribute('src', videoUrl);
 
   }
